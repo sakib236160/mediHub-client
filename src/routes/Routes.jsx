@@ -6,7 +6,7 @@ import SignUp from '../pages/SignUp/SignUp'
 import PlantDetails from '../pages/PlantDetails/PlantDetails'
 import PrivateRoute from './PrivateRoute'
 import DashboardLayout from '../layouts/DashboardLayout'
-import AddPlant from '../pages/Dashboard/Seller/AddPlant'
+import AddCamp from '../pages/Dashboard/Seller/AddCamp'
 import ManageUsers from '../pages/Dashboard/Admin/ManageUsers'
 import Profile from '../pages/Dashboard/Common/Profile'
 import Statistics from '../pages/Dashboard/Common/Statistics'
@@ -50,10 +50,10 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: 'add-plant',
+        path: 'add-camp',
         element: (
           <PrivateRoute>
-            <AddPlant />
+            <AddCamp />
           </PrivateRoute>
         ),
       },
