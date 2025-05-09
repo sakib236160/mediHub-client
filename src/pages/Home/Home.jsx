@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async'
-import Plants from '../../components/Home/Plants'
+import PopularCamps from '../../components/Home/PopularCamps'
 
 const Home = () => {
   return (
@@ -7,7 +7,7 @@ const Home = () => {
       <Helmet>
         <title> MediHub | Buy Your Desired Plant</title>
       </Helmet>
-      <Plants />
+      <PopularCamps></PopularCamps>
     </div>
   )
 }

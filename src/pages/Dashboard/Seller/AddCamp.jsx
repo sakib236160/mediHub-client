@@ -19,10 +19,14 @@ const AddCamp = () => {
     const name = form.name.value;
     const description = form.description.value;
     const fees = parseFloat(form.fees.value);
-    const datetime = form.datetime.value;
+    const date = form.date.value;   // input type="date" এর value
+    const time = form.time.value; 
+    const datetime = `${date}T${time}`;
     const location = form.location.value;
     const doctor = form.doctor.value;
+    const audience = form.audience.value;
     const participant = parseInt(form.participant.value); 
+    const services = form.services.value.split(',').map(s => s.trim());
     const image = form.image.files[0];
     const imageUrl = await imageUpload(image)
     // seller info
@@ -39,6 +43,8 @@ const AddCamp = () => {
       datetime,
       location,
       doctor,
+      audience,
+      services,
       participant,
       image: imageUrl,
       seller
