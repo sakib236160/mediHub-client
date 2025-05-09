@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <div>
       <Helmet>
-        <title> PlantNet | Buy Your Desired Plant</title>
+        <title> MediHub | Buy Your Desired Plant</title>
       </Helmet>
       <Plants />
     </div>
