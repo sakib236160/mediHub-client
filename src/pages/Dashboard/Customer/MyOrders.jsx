@@ -1,7 +1,10 @@
 import { Helmet } from 'react-helmet-async'
 import CustomerOrderDataRow from '../../../components/Dashboard/TableRows/CustomerOrderDataRow'
+import useAuth from '../../../hooks/useAuth'
 
 const MyOrders = () => {
+  const {user} = useAuth()
+  
   return (
     <>
       <Helmet>

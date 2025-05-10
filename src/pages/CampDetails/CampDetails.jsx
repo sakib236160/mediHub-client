@@ -14,7 +14,7 @@ const CampDetails = () => {
   const { id } = useParams();
   const [isOpen, setIsOpen] = useState(false);
 
-  const { data: camp = {}, isLoading } = useQuery({
+  const { data: camp = {}, isLoading, refetch } = useQuery({
     queryKey: ["camp", id],
     queryFn: async () => {
       const { data } = await axios(
@@ -117,7 +117,7 @@ const CampDetails = () => {
           </div>
           <hr className="my-6" />
 
-          <JoinCampModal closeModal={closeModal} isOpen={isOpen} />
+          <JoinCampModal camp={camp} closeModal={closeModal} isOpen={isOpen}  refetch={ refetch}/>
         </div>
       </div>
     </Container>
