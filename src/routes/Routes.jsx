@@ -3,7 +3,6 @@ import Home from '../pages/Home/Home'
 import ErrorPage from '../pages/ErrorPage'
 import Login from '../pages/Login/Login'
 import SignUp from '../pages/SignUp/SignUp'
-import PlantDetails from '../pages/PlantDetails/PlantDetails'
 import PrivateRoute from './PrivateRoute'
 import DashboardLayout from '../layouts/DashboardLayout'
 import AddCamp from '../pages/Dashboard/Seller/AddCamp'
@@ -14,6 +13,7 @@ import MainLayout from '../layouts/MainLayout'
 import MyInventory from '../pages/Dashboard/Seller/MyInventory'
 import ManageOrders from '../pages/Dashboard/Seller/ManageOrders'
 import MyOrders from '../pages/Dashboard/Customer/MyOrders'
+import CampDetails from '../pages/CampDetails/CampDetails'
 
 export const router = createBrowserRouter([
   {
@@ -27,7 +27,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '/camp/:id',
-        element: <PlantDetails />,
+        element: <CampDetails></CampDetails>
       },
     ],
   },
