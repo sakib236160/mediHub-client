@@ -146,7 +146,7 @@ const Card = ({ camp }) => {
         {/* Buttons */}
         <div className="mt-4 text-center">
           <div className="flex gap-4 justify-center">
-            <Link to={`/camp-details/${_id}`}>
+            <Link to={`/camp/${_id}`}>
               <Button variant="link" className="text-primary">
                 See Details →
               </Button>

@@ -9,7 +9,8 @@ import toast from 'react-hot-toast'
 const AddCamp = () => {
   const {user} = useAuth();
   const axiosSecure = useAxiosSecure()
-  const [uploadButtonText, setUploadButtonText] = useState({name:'Upload Image'})
+  const [uploadImage, setUploadImage] = useState({image: {name:'Upload Image'}})
+  console.log(uploadImage);
   const [loading,setLoading] = useState(false)
   // handle form submit
   const handleSubmit = async e =>{
@@ -71,8 +72,8 @@ const AddCamp = () => {
       {/* Form */}
       <AddCampForm 
       handleSubmit={handleSubmit} 
-      uploadButtonText={uploadButtonText}
-      setUploadButtonText={setUploadButtonText}
+      uploadImage={uploadImage}
+      setUploadImage={setUploadImage}
       loading ={loading}
       />
     </div>
