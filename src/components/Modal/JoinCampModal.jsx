@@ -11,8 +11,11 @@ import Button from '../Shared/Button/Button';
 import useAuth from '../../hooks/useAuth';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+// import { Navigate } from 'react-router-dom';
 
 const JoinCampModal = ({ closeModal, isOpen, camp, refetch }) => {
+  const navigate = useNavigate()
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 
@@ -49,14 +52,18 @@ const JoinCampModal = ({ closeModal, isOpen, camp, refetch }) => {
       // 2. Decrease participant count from camp
       await axiosSecure.patch(`/camps/participant/${_id}`, {
         participantToUpdate: 1,
+        status:'decrease'
       });
 
       toast.success('Join camp successfully!');
        refetch();
-      closeModal();
+       navigate('/dashboard/my-camps')
+      
     } catch (error) {
       console.log(error);
       toast.error('Something went wrong!');
+    }finally{
+      closeModal();
     }
   };
 

@@ -82,7 +82,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: 'my-orders',
+        path: 'my-camps',
         element: (
           <PrivateRoute>
             <MyOrders />
