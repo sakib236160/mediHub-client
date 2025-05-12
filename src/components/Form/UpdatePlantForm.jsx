@@ -28,10 +28,10 @@ const UpdatePlantForm = () => {
                 className='w-full px-4 py-3 border-lime-300 focus:outline-lime-500 rounded-md bg-white'
                 name='category'
               >
-                <option value='Indoor'>Indoor</option>
-                <option value='Outdoor'>Outdoor</option>
-                <option value='Succulent'>Succulent</option>
-                <option value='Flowering'>Flowering</option>
+                <option value='Indoor'>#</option>
+                <option value='Outdoor'>#</option>
+                <option value='Succulent'>#</option>
+                <option value='Flowering'>#</option>
               </select>
             </div>
             {/* Description */}
@@ -107,7 +107,7 @@ const UpdatePlantForm = () => {
               type='submit'
               className='w-full p-3 mt-5 text-center font-medium text-white transition duration-200 rounded shadow-md bg-lime-500 '
             >
-              Update Plant
+              Update Camp
             </button>
           </div>
         </div>

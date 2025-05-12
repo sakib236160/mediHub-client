@@ -1,8 +1,26 @@
 import { Helmet } from 'react-helmet-async'
-
 import PlantDataRow from '../../../components/Dashboard/TableRows/PlantDataRow'
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import { useQuery } from '@tanstack/react-query';
+import LoadingSpinner from '../../../components/Shared/LoadingSpinner';
 
 const MyInventory = () => {
+
+  const axiosSecure = useAxiosSecure();
+  const {
+    data: camps = [],
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["camps"],
+    queryFn: async () => {
+      const { data } = await axiosSecure(`/camps/seller`);
+      return data;
+    },
+  });
+  console.log(camps);
+  if (isLoading) return <LoadingSpinner></LoadingSpinner>;
+
   return (
     <>
       <Helmet>
@@ -31,19 +49,19 @@ const MyInventory = () => {
                       scope='col'
                       className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
                     >
-                      Category
+                      Location
                     </th>
                     <th
                       scope='col'
                       className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
                     >
-                      Price
+                      Fees
                     </th>
                     <th
                       scope='col'
                       className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
                     >
-                      Quantity
+                      Participant
                     </th>
 
                     <th
@@ -61,7 +79,9 @@ const MyInventory = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <PlantDataRow />
+                  {
+                    camps.map(camp=><PlantDataRow key={camp?._id} camp={camp} refetch={refetch}/>)
+                  }
                 </tbody>
               </table>
             </div>

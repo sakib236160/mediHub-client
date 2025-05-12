@@ -5,8 +5,10 @@ import useAuth from '../../../hooks/useAuth'
 import { useState } from 'react'
 import useAxiosSecure from '../../../hooks/useAxiosSecure'
 import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
 
 const AddCamp = () => {
+  const navigate = useNavigate()
   const {user} = useAuth();
   const axiosSecure = useAxiosSecure()
   const [uploadImage, setUploadImage] = useState({image: {name:'Upload Image'}})
@@ -56,6 +58,7 @@ const AddCamp = () => {
       // post request
       await axiosSecure.post('/camps',campData)
       toast.success('Data Added Successfully!')
+      navigate('/dashboard/my-inventory')
     }catch(error){
       console.log(error);
     }
