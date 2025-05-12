@@ -98,7 +98,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "manage-orders",
+        path: "manage-camps",
         element: (
           <PrivateRoute>
             <SellerRoute>

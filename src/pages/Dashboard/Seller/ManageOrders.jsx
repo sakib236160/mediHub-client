@@ -1,12 +1,33 @@
 import { Helmet } from 'react-helmet-async'
 
 import SellerOrderDataRow from '../../../components/Dashboard/TableRows/SellerOrderDataRow'
+import useAuth from '../../../hooks/useAuth';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import { useQuery } from '@tanstack/react-query';
+import LoadingSpinner from '../../../components/Shared/LoadingSpinner';
 
 const ManageOrders = () => {
+
+  const { user } = useAuth();
+    const axiosSecure = useAxiosSecure();
+    const {
+      data: orders = [],
+      isLoading,
+      refetch,
+    } = useQuery({
+      queryKey: ["orders", user?.email],
+      queryFn: async () => {
+        const { data } = await axiosSecure(`/seller-orders/${user?.email}`);
+        return data;
+      },
+    });
+    console.log(orders);
+    if (isLoading) return <LoadingSpinner></LoadingSpinner>;
+
   return (
     <>
       <Helmet>
-        <title>Manage Orders</title>
+        <title>Manage Camps</title>
       </Helmet>
       <div className='container mx-auto px-4 sm:px-8'>
         <div className='py-8'>
@@ -25,19 +46,19 @@ const ManageOrders = () => {
                       scope='col'
                       className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
                     >
-                      Customer
+                      Email
                     </th>
                     <th
                       scope='col'
                       className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
                     >
-                      Price
+                      Fees
                     </th>
                     <th
                       scope='col'
                       className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
                     >
-                      Quantity
+                      Participant
                     </th>
                     <th
                       scope='col'
@@ -61,7 +82,9 @@ const ManageOrders = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <SellerOrderDataRow />
+                  {
+                    orders.map(orderData=><SellerOrderDataRow key={orderData?._id} orderData={orderData} refetch={refetch}/>)
+                  }
                 </tbody>
               </table>
             </div>
