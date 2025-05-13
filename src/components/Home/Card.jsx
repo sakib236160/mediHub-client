@@ -1,72 +1,7 @@
-// import { Link } from 'react-router-dom'
-
-// const Card = ({camp}) => {
-//   const { _id, name, image, fees, dateTime, location, healthcareProfessional, participantCount, targetAudience, services, description } = camp || {};
-//   return (
-//     <Link
-//       to={`/plant/1`}
-//       className='col-span-1 cursor-pointer group shadow-xl p-3 rounded-xl'
-//     >
-//       <div className='flex flex-col gap-2 w-full'>
-//         <div
-//           className='
-//               aspect-square 
-//               w-full 
-//               relative 
-//               overflow-hidden 
-//               rounded-xl
-//             '
-//         >
-//           <img
-//             className='
-//                 object-cover 
-//                 h-full 
-//                 w-full 
-//                 group-hover:scale-110 
-//                 transition
-//               '
-//             src={image}
-//             alt='Plant Image'
-//           />
-//           <div
-//             className='
-//               absolute
-//               top-3
-//               right-3
-//             '
-//           ></div>
-//         </div>
-//         <div className='font-semibold text-lg'>
-//         <h1 className="title-font text-lg font-medium text-gray-900 mb-3">
-//                         {name}
-//                     </h1>
-//         </div>
-//         <div className='font-semibold text-lg'>
-//         <p className="leading-relaxed mb-3">
-//                         {description?.split(" ").slice(0, 5).join(" ")}
-//                     </p>
-//         </div>
-//         <div className='font-semibold text-lg'>Category: Indoor</div>
-//         <div className='font-semibold text-lg'>Quantity: 10</div>
-//         <div className='flex flex-row items-center gap-1'>
-//           <div className='font-semibold'> Price: 15$</div>
-//         </div>
-//       </div>
-//     </Link>
-//   )
-// }
-
-// export default Card
-
-
-
-
-
-
 import { MapPin, CalendarDays, Users, DollarSign, User } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Badge } from "../ui/Badge";
-import { Button } from "../ui/Button";
+import { Button } from "@headlessui/react";
 
 const Card = ({ camp }) => {
   const {
@@ -151,9 +86,9 @@ const Card = ({ camp }) => {
                 See Details →
               </Button>
             </Link>
-            <Button variant="solid" className="bg-blue-600 text-white">
+            {/* <Button variant="solid" className="bg-blue-600 text-white">
               Join Camp
-            </Button>
+            </Button> */}
           </div>
         </div>
       </div>

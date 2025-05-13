@@ -32,6 +32,25 @@ const { name,customer, participant, fees, address, _id, status, campId } = order
     }
   };
 
+  // handle status change
+  const handleStatus = async newStatus => {
+    if(status===newStatus) return
+     try {
+
+      // 2. Update Order Status
+      await axiosSecure.patch(`/orders/${_id}`, {
+        status: newStatus,
+      });
+
+      // 3. Refreshing the UI
+      refetch();
+      toast.success('Status Updated')
+    } catch (err) {
+      console.error('Error deleting order or updating camp:', err);
+      toast.error(err.response.data)
+    }
+  }
+
   return (
     <tr>
       <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
@@ -58,6 +77,8 @@ const { name,customer, participant, fees, address, _id, status, campId } = order
           <select
             required
             defaultValue={status}
+            onChange={(e)=>handleStatus(e.target.value)}
+            disabled={status === 'Delivered'}
             className='p-1 border-2 border-lime-300 focus:outline-lime-500 rounded-md text-gray-900 whitespace-no-wrap bg-white'
             name='category'
           >
