@@ -9,8 +9,12 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import LoadingSpinner from "../../components/Shared/LoadingSpinner";
 import JoinCampModal from "../../components/Modal/JoinCampModal";
+import useRole from "../../hooks/useRole";
+import useAuth from "../../hooks/useAuth";
 
 const CampDetails = () => {
+  const [role] = useRole()
+  const {user} = useAuth()
   const { id } = useParams();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -107,7 +111,11 @@ const CampDetails = () => {
             <p className="font-bold text-3xl text-gray-500">Fees: ${fees}</p>
             <div>
               {participant > 0 ? (
-                <Button label="Join Camp" onClick={() => setIsOpen(true)} />
+                <Button 
+                disabled={!user || user?.email === seller?.email || role !='customer' || participant === 0} 
+                label="Join Camp" 
+                onClick={() => setIsOpen(true)} 
+                />
               ) : (
                 <p className="text-red-500 font-semibold">
                   Participant Out of Stock

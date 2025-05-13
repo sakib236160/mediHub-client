@@ -1,4 +1,6 @@
 import { TbFidgetSpinner } from "react-icons/tb";
+import Container from "../Shared/Container";
+import { shortImageName } from "../../utilities";
 
 const AddCampForm = ({
   handleSubmit,
@@ -6,8 +8,9 @@ const AddCampForm = ({
   loading,
 }) => {
   return (
-    <div className="w-full min-h-[calc(100vh-40px)] flex flex-col justify-center items-center text-gray-800 rounded-xl bg-gray-50">
-      <form onSubmit={handleSubmit}>
+    <Container>
+      <div className="w-full min-h-[calc(100vh-40px)] flex flex-col justify-center items-center text-gray-800 rounded-xl bg-gray-50 py-10">
+      <form onSubmit={handleSubmit} className="w-full max-w-6xl px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           <div className="space-y-6">
             {/* Camp Name */}
@@ -178,7 +181,8 @@ const AddCampForm = ({
                       hidden
                     />
                     <div className="bg-lime-500 text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-lime-500">
-                      {uploadImage?.image?.name}
+                      {/* {uploadImage?.image?.name} */}
+                      {shortImageName(uploadImage?.image)}
                     </div>
                   </label>
                 </div>
@@ -208,6 +212,7 @@ const AddCampForm = ({
         </div>
       </form>
     </div>
+    </Container>
   );
 };
 
