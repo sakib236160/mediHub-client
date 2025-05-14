@@ -16,6 +16,7 @@ import MyOrders from "../pages/Dashboard/Customer/MyOrders";
 import CampDetails from "../pages/CampDetails/CampDetails";
 import SellerRoute from "./SellerRoute";
 import AdminRoute from "./AdminRoute";
+import AvailableCamps from "../pages/AvailableCamps/AvailableCamps";
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ export const router = createBrowserRouter([
         path: "/camp/:id",
         element: <CampDetails></CampDetails>,
       },
+       {
+    path: "/available-camps",
+    element: <AvailableCamps></AvailableCamps>
+  },
     ],
   },
   { path: "/login", element: <Login /> },

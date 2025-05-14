@@ -1,96 +1,84 @@
-import Container from '../Container'
-import { AiOutlineMenu } from 'react-icons/ai'
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import useAuth from '../../../hooks/useAuth'
-import avatarImg from '../../../assets/images/placeholder.jpg'
-// import logo from '../../../assets/images/logo.png'
+import { Link, NavLink } from "react-router-dom";
 import logo from '../../../assets/images/logo.png'
+import { useContext, useState } from "react";
+import { AuthContext } from "../../../providers/AuthProvider";
+import Container from "../Container";
+
 const Navbar = () => {
-  const { user, logOut } = useAuth()
-  const [isOpen, setIsOpen] = useState(false)
+  const { user, logOut } = useContext(AuthContext);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const handleLogout = async () => {
+    try {
+      await logOut();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
-    <div className='fixed w-full bg-white z-10 shadow-sm'>
-      <div className='py-4 border-b-[1px]'>
-        <Container>
-          <div className='flex flex-row  items-center justify-between gap-3 md:gap-0'>
-            {/* Logo */}
-            <Link to='/'>
-              <img src={logo} alt='logo' width='100' height='100' />
-            </Link>
-            {/* Dropdown Menu */}
-            <div className='relative'>
-              <div className='flex flex-row items-center gap-3'>
-                {/* Dropdown btn */}
-                <div
-                  onClick={() => setIsOpen(!isOpen)}
-                  className='p-4 md:py-1 md:px-2 border-[1px] border-neutral-200 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:shadow-md transition'
-                >
-                  <AiOutlineMenu />
-                  <div className='hidden md:block'>
-                    {/* Avatar */}
-                    <img
-                      className='rounded-full'
-                      referrerPolicy='no-referrer'
-                      src={user && user.photoURL ? user.photoURL : avatarImg}
-                      alt='profile'
-                      height='30'
-                      width='30'
-                    />
-                  </div>
-                </div>
-              </div>
-              {isOpen && (
-                <div className='absolute rounded-xl shadow-md w-[40vw] md:w-[10vw] bg-white overflow-hidden right-0 top-12 text-sm'>
-                  <div className='flex flex-col cursor-pointer'>
-                    <Link
-                      to='/'
-                      className='block md:hidden px-4 py-3 hover:bg-neutral-100 transition font-semibold'
-                    >
-                      Home
-                    </Link>
+    <div className="fixed z-10 bg-white/90 w-full shadow-sm">
+      <Container>
+        <nav className="flex items-center justify-between py-4">
+        {/* Logo + Name */}
+        <Link to="/" className="flex items-center gap-2">
+          <img src={logo} alt="Logo" className="w-48" />
+        </Link>
 
-                    {user ? (
-                      <>
-                        <Link
-                          to='/dashboard'
-                          className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'
-                        >
-                          Dashboard
-                        </Link>
-                        <div
-                          onClick={logOut}
-                          className='px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer'
-                        >
-                          Logout
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <Link
-                          to='/login'
-                          className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'
-                        >
-                          Login
-                        </Link>
-                        <Link
-                          to='/signup'
-                          className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'
-                        >
-                          Sign Up
-                        </Link>
-                      </>
-                    )}
+        {/* Navigation Links */}
+        <ul className="flex items-center gap-6 text-gray-700 font-medium">
+          <NavLink to="/" className={({ isActive }) => isActive ? "text-primary" : ""}>
+            Home
+          </NavLink>
+          <NavLink to="/available-camps" className={({ isActive }) => isActive ? "text-primary" : ""}>
+            Available Camps
+          </NavLink>
+        </ul>
+
+        {/* Right Side */}
+        <div className="flex items-center gap-3 relative">
+          {user ? (
+            <div className="relative">
+              <img
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+                src={user.photoURL}
+                alt="Profile"
+                className="w-10 h-10 rounded-full border-2 border-primary cursor-pointer"
+                referrerPolicy="no-referrer"
+              />
+              {dropdownOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 z-20">
+                  <div className="px-4 py-2 text-gray-700 font-semibold">
+                    {user.displayName || "User"}
                   </div>
+                  <Link
+                    to="/dashboard"
+                    className="block px-4 py-2 text-gray-700 hover:bg-primary/10"
+                  >
+                    Dashboard
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-primary/10"
+                  >
+                    Logout
+                  </button>
                 </div>
               )}
             </div>
-          </div>
-        </Container>
-      </div>
+          ) : (
+            <Link
+              to="/signup"
+              className="px-4 py-2 rounded bg-primary text-white font-semibold hover:bg-primary/90"
+            >
+              Join Us
+            </Link>
+          )}
+        </div>
+      </nav>
+      </Container>
     </div>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
