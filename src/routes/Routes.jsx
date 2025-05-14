@@ -34,7 +34,7 @@ export const router = createBrowserRouter([
       },
        {
     path: "/available-camps",
-    element: <AvailableCamps></AvailableCamps>
+    element: <PrivateRoute><AvailableCamps></AvailableCamps></PrivateRoute>,
   },
     ],
   },
