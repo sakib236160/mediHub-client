@@ -5,67 +5,41 @@ import {
   TransitionChild,
   DialogPanel,
   DialogTitle,
-} from '@headlessui/react';
-import { Fragment, useState } from 'react';
-import Button from '../Shared/Button/Button';
-import useAuth from '../../hooks/useAuth';
-import useAxiosSecure from '../../hooks/useAxiosSecure';
-import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
-// import { Navigate } from 'react-router-dom';
+} from "@headlessui/react";
+import { Fragment, useState } from "react";
+import useAuth from "../../hooks/useAuth";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import CheckoutForm from "../Form/CheckoutForm";
+
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
 const JoinCampModal = ({ closeModal, isOpen, camp, refetch }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 
-  const {
-    _id,
-    name,
-    fees,
-    seller,
-  } = camp;
+  const { _id, name, fees, seller } = camp;
 
   const [submitInfo, setSubmitInfo] = useState({
     customer: {
-      name: user?.displayName || '',
-      email: user?.email || '',
-      image: user?.photoURL || '',
+      name: user?.displayName || "",
+      email: user?.email || "",
+      image: user?.photoURL || "",
     },
     campId: _id,
     fees: fees,
-    seller: seller?.email || '',
-    address: '',
-    status: 'Pending',
-    age: '',
-    gender: '',
-    phone: '',
-    emergencyContact: '',
+    seller: seller?.email || "",
+    address: "",
+    status: "Pending",
+    age: "",
+    gender: "",
+    phone: "",
+    emergencyContact: "",
   });
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      // 1. Save order info
-      await axiosSecure.post('/order', submitInfo);
-
-      // 2. Decrease participant count from camp
-      await axiosSecure.patch(`/camps/participant/${_id}`, {
-        participantToUpdate: 1,
-        status:'decrease'
-      });
-
-      toast.success('Join camp successfully!');
-       refetch();
-       navigate('/dashboard/my-camps')
-      
-    } catch (error) {
-      console.log(error);
-      toast.error('Something went wrong!');
-    }finally{
-      closeModal();
-    }
-  };
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -101,13 +75,11 @@ const JoinCampModal = ({ closeModal, isOpen, camp, refetch }) => {
                   Camp Registration
                 </DialogTitle>
 
-                <form
-                  onSubmit={handleSubmit}
-                  className="grid grid-cols-1 md:grid-cols-2 gap-4"
-                >
+                {/* Basic Info Form Part */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <input
                     type="text"
-                    value={user?.displayName || ''}
+                    value={user?.displayName || ""}
                     readOnly
                     className="input input-bordered w-full bg-gray-100"
                   />
@@ -115,13 +87,16 @@ const JoinCampModal = ({ closeModal, isOpen, camp, refetch }) => {
                     type="text"
                     placeholder="Your Age"
                     onChange={(e) =>
-                      setSubmitInfo((prev) => ({ ...prev, age: e.target.value }))
+                      setSubmitInfo((prev) => ({
+                        ...prev,
+                        age: e.target.value,
+                      }))
                     }
                     className="input input-bordered w-full"
                   />
                   <input
                     type="email"
-                    value={user?.email || ''}
+                    value={user?.email || ""}
                     readOnly
                     className="input input-bordered w-full bg-gray-100"
                   />
@@ -129,7 +104,10 @@ const JoinCampModal = ({ closeModal, isOpen, camp, refetch }) => {
                     className="select select-bordered w-full"
                     defaultValue=""
                     onChange={(e) =>
-                      setSubmitInfo((prev) => ({ ...prev, gender: e.target.value }))
+                      setSubmitInfo((prev) => ({
+                        ...prev,
+                        gender: e.target.value,
+                      }))
                     }
                   >
                     <option disabled value="">
@@ -143,7 +121,10 @@ const JoinCampModal = ({ closeModal, isOpen, camp, refetch }) => {
                     type="text"
                     placeholder="Your Phone Number"
                     onChange={(e) =>
-                      setSubmitInfo((prev) => ({ ...prev, phone: e.target.value }))
+                      setSubmitInfo((prev) => ({
+                        ...prev,
+                        phone: e.target.value,
+                      }))
                     }
                     className="input input-bordered w-full"
                   />
@@ -157,7 +138,10 @@ const JoinCampModal = ({ closeModal, isOpen, camp, refetch }) => {
                     type="text"
                     placeholder="Enter Your Address"
                     onChange={(e) =>
-                      setSubmitInfo((prev) => ({ ...prev, address: e.target.value }))
+                      setSubmitInfo((prev) => ({
+                        ...prev,
+                        address: e.target.value,
+                      }))
                     }
                     className="input input-bordered w-full"
                   />
@@ -172,14 +156,18 @@ const JoinCampModal = ({ closeModal, isOpen, camp, refetch }) => {
                     }
                     className="input input-bordered w-full"
                   />
+                </div>
 
-                  <div className="col-span-1 md:col-span-2 text-center space-y-3 mt-4">
-                    <Button type="submit" label="Submit Camp" />
-                    <p className="text-lg font-semibold text-gray-800">
-                      Pay: <span className="text-blue-600">${fees}</span>
-                    </p>
-                  </div>
-                </form>
+                {/* Stripe Checkout Form */}
+                <div className="mt-6">
+                  <Elements stripe={stripePromise}>
+                    <CheckoutForm
+                      closeModal={closeModal}
+                      submitInfo={submitInfo}
+                      refetch={refetch}
+                    />
+                  </Elements>
+                </div>
               </DialogPanel>
             </TransitionChild>
           </div>
@@ -190,4 +178,3 @@ const JoinCampModal = ({ closeModal, isOpen, camp, refetch }) => {
 };
 
 export default JoinCampModal;
-
