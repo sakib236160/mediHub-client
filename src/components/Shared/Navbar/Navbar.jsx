@@ -31,6 +31,12 @@ const Navbar = () => {
             >
               Home
             </NavLink>
+            <NavLink
+              to="/contact"
+              className={({ isActive }) => (isActive ? "text-primary" : "")}
+            >
+              Contact
+            </NavLink>
 
             {user && (
               <NavLink

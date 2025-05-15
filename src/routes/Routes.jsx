@@ -17,6 +17,7 @@ import CampDetails from "../pages/CampDetails/CampDetails";
 import SellerRoute from "./SellerRoute";
 import AdminRoute from "./AdminRoute";
 import AvailableCamps from "../pages/AvailableCamps/AvailableCamps";
+import Contact from "../pages/Contact/Contact";
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ export const router = createBrowserRouter([
       {
         path: "/camp/:id",
         element: <CampDetails></CampDetails>,
+      },
+      {
+        path: "/contact",
+        element: <Contact></Contact>
       },
        {
     path: "/available-camps",
