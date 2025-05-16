@@ -19,7 +19,7 @@ const AddCampForm = ({
                 Camp Name
               </label>
               <input
-                className="w-full px-4 py-3 text-gray-800 border border-lime-300 focus:outline-lime-500 rounded-md bg-white"
+                className="w-full px-4 py-3 text-gray-800 border border-blue-300 focus:outline-blue-500 rounded-md bg-white"
                 name="name"
                 id="name"
                 type="text"
@@ -34,7 +34,7 @@ const AddCampForm = ({
                 Camp Fees
               </label>
               <input
-                className="w-full px-4 py-3 text-gray-800 border border-lime-300 focus:outline-lime-500 rounded-md bg-white"
+                className="w-full px-4 py-3 text-gray-800 border border-blue-300 focus:outline-blue-500 rounded-md bg-white"
                 name="fees"
                 id="fees"
                 type="number"
@@ -49,7 +49,7 @@ const AddCampForm = ({
                 Date
               </label>
               <input
-                className="w-full px-4 py-3 text-gray-800 border border-lime-300 focus:outline-lime-500 rounded-md bg-white"
+                className="w-full px-4 py-3 text-gray-800 border border-blue-300 focus:outline-blue-500 rounded-md bg-white"
                 name="date"
                 id="date"
                 type="date"
@@ -63,7 +63,7 @@ const AddCampForm = ({
                 Time
               </label>
               <input
-                className="w-full px-4 py-3 text-gray-800 border border-lime-300 focus:outline-lime-500 rounded-md bg-white"
+                className="w-full px-4 py-3 text-gray-800 border border-blue-300 focus:outline-blue-500 rounded-md bg-white"
                 name="time"
                 id="time"
                 type="time"
@@ -79,7 +79,7 @@ const AddCampForm = ({
                  Participant Count
                </label>
                <input
-                 className='w-full px-4 py-3 text-gray-800 border border-lime-300 focus:outline-lime-500 rounded-md bg-white'
+                 className='w-full px-4 py-3 text-gray-800 border border-blue-300 focus:outline-blue-500 rounded-md bg-white'
                  name='participant'
                  id='participant'
                  type='number'
@@ -97,7 +97,7 @@ const AddCampForm = ({
               <textarea
                 id="description"
                 placeholder="Write camp description here..."
-                className="block rounded-md w-full h-32 px-4 py-3 text-gray-800 border border-lime-300 bg-white focus:outline-lime-500"
+                className="block rounded-md w-full h-32 px-4 py-3 text-gray-800 border border-blue-300 bg-white focus:outline-blue-500"
                 name="description"
               ></textarea>
             </div>
@@ -110,7 +110,7 @@ const AddCampForm = ({
                 Location
               </label>
               <input
-                className="w-full px-4 py-3 text-gray-800 border border-lime-300 focus:outline-lime-500 rounded-md bg-white"
+                className="w-full px-4 py-3 text-gray-800 border border-blue-300 focus:outline-blue-500 rounded-md bg-white"
                 name="location"
                 id="location"
                 type="text"
@@ -127,7 +127,7 @@ const AddCampForm = ({
               <select
                 name="doctor"
                 id="doctor"
-                className="w-full px-4 py-3 text-gray-800 border border-lime-300 focus:outline-lime-500 rounded-md bg-white"
+                className="w-full px-4 py-3 text-gray-800 border border-blue-300 focus:outline-blue-500 rounded-md bg-white"
                 required
               >
                 <option value="">Select a professional</option>
@@ -143,7 +143,7 @@ const AddCampForm = ({
                 Target Audience
               </label>
               <input
-                className="w-full px-4 py-3 text-gray-800 border border-lime-300 focus:outline-lime-500 rounded-md bg-white"
+                className="w-full px-4 py-3 text-gray-800 border border-blue-300 focus:outline-blue-500 rounded-md bg-white"
                 name="audience"
                 id="audience"
                 type="text"
@@ -158,7 +158,7 @@ const AddCampForm = ({
                 Specialized Services
               </label>
               <input
-                className="w-full px-4 py-3 text-gray-800 border border-lime-300 focus:outline-lime-500 rounded-md bg-white"
+                className="w-full px-4 py-3 text-gray-800 border border-blue-300 focus:outline-blue-500 rounded-md bg-white"
                 name="services"
                 id="services"
                 type="text"
@@ -180,7 +180,7 @@ const AddCampForm = ({
                       accept="image/*"
                       hidden
                     />
-                    <div className="bg-lime-500 text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-lime-500">
+                    <div className="bg-blue-500 text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-blue-500">
                       {/* {uploadImage?.image?.name} */}
                       {shortImageName(uploadImage?.image)}
                     </div>
@@ -200,7 +200,7 @@ const AddCampForm = ({
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full p-3 mt-5 text-center font-medium text-white transition duration-200 rounded shadow-md bg-lime-500"
+              className="w-full p-3 mt-5 text-center font-medium text-white transition duration-200 rounded shadow-md bg-blue-500"
             >
               {loading ? (
                 <TbFidgetSpinner className="animate-spin m-auto" />
