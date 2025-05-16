@@ -2,7 +2,6 @@ import Container from "../../components/Shared/Container";
 // import { Helmet } from 'react-helmet-async'
 import Heading from "../../components/Shared/Heading";
 import Button from "../../components/Shared/Button/Button";
-// import PurchaseModal from "../../components/Modal/JoinCampModal";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";

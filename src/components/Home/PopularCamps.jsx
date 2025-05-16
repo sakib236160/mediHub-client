@@ -5,26 +5,48 @@ import axios from 'axios'
 import LoadingSpinner from '../Shared/LoadingSpinner'
 import { Link } from 'react-router-dom'
 import SectionTitle from '../SectionTitle/SectionTitle'
+import { useState } from 'react'
 
 const PopularCamps = () => {
+  const [sortOrder, setSortOrder] = useState("dsc");
+
   const { data: camps, isLoading } = useQuery({
     queryKey: ['popular-camps'],
     queryFn: async () => {
-      const { data } = await axios(`${import.meta.env.VITE_API_URL}/camps`)
+      const { data } = await axios(`${import.meta.env.VITE_API_URL}/camps`);
+      console.log("All Camps From Server:", data);
       return data;
     }
-  })
+  });
 
-  if (isLoading) return <LoadingSpinner />
+  if (isLoading) return <LoadingSpinner />;
 
-  const popularCamps = camps?.slice(0, 6) || [];
+  const sortedCamps = [...(camps || [])].sort((a, b) => {
+    const countA = a.participant || 0;
+    const countB = b.participant || 0;
+    return sortOrder === "asc" ? countA - countB : countB - countA;
+  });
+
+  const popularCamps = sortedCamps.slice(0, 6);
 
   return (
     <Container>
-       <SectionTitle
+      <SectionTitle
         heading={"Popular Camps"}
         subHeading={"Explore Events Aimed at Community Wellness"}
       />
+
+      {/* Sort Dropdown */}
+      <div className="flex justify-end mb-6">
+        <select
+          value={sortOrder}
+          onChange={(e) => setSortOrder(e.target.value)}
+          className="border border-gray-300 px-4 py-2 rounded-md text-sm shadow-sm focus:outline-none"
+        >
+          <option value="dsc">Sort by: Highest Participants</option>
+          <option value="asc">Sort by: Lowest Participants</option>
+        </select>
+      </div>
 
       {popularCamps.length > 0 ? (
         <>

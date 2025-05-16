@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { MapPin, CalendarDays, Users, DollarSign, User } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Badge } from "../ui/Badge";
 import { Button } from "@headlessui/react";
+import JoinCampModal from "../Modal/JoinCampModal";
 
-const Card = ({ camp }) => {
+const Card = ({ camp, showJoinButton = false, refetch }) => {
   const {
     _id,
     name,
@@ -18,6 +20,8 @@ const Card = ({ camp }) => {
     description,
   } = camp || {};
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <div className="border rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300 bg-white flex flex-col">
       {/* Image */}
@@ -31,7 +35,7 @@ const Card = ({ camp }) => {
           {location}
         </div>
 
-        {/* healthcareProfessional */}
+        {/* Doctor */}
         <div className="flex items-center text-gray-500 text-sm gap-1">
           <User className="w-4 h-4" />
           {doctor}
@@ -45,7 +49,7 @@ const Card = ({ camp }) => {
           {description?.slice(0, 120)}...
         </p>
 
-        {/* Services Badge */}
+        {/* Services */}
         <div className="flex flex-wrap gap-2 mt-2">
           {services?.map((service, idx) => (
             <Badge key={idx} variant="secondary" className="text-xs">
@@ -54,13 +58,13 @@ const Card = ({ camp }) => {
           ))}
         </div>
 
-        {/* Target Audience */}
+        {/* Audience */}
         <div className="flex items-center gap-2 text-gray-500 text-sm mt-2">
           <User className="w-4 h-4" />
           {audience}
         </div>
 
-        {/* Bottom Details */}
+        {/* Footer Details */}
         <div className="flex justify-between text-gray-600 text-sm mt-4">
           <div className="flex items-center gap-1">
             <DollarSign className="w-4 h-4" />
@@ -78,23 +82,39 @@ const Card = ({ camp }) => {
           </div>
         </div>
 
-        {/* Buttons */}
+        {/* Action Buttons */}
         <div className="mt-4 text-center">
-          <div className="flex gap-4 justify-center">
+          <div className="flex gap-4 justify-between">
             <Link to={`/camp/${_id}`}>
               <Button variant="link" className="text-primary">
                 See Details →
               </Button>
             </Link>
-            {/* <Button variant="solid" className="bg-blue-600 text-white">
-              Join Camp
-            </Button> */}
+
+            {showJoinButton && (
+            <Button
+                variant="solid"
+                className="text-primary"
+                onClick={() => setIsModalOpen(true)}
+              >
+                Join Camp →
+              </Button>
+            )}
           </div>
         </div>
       </div>
+
+      {/* JoinCamp Modal */}
+      {showJoinButton && (
+        <JoinCampModal
+          closeModal={() => setIsModalOpen(false)}
+          isOpen={isModalOpen}
+          camp={camp}
+          refetch={refetch}
+        />
+      )}
     </div>
   );
 };
 
 export default Card;
-
