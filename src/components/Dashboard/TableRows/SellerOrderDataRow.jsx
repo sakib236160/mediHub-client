@@ -79,7 +79,7 @@ const { name,customer, participant, fees, address, _id, status, campId } = order
             defaultValue={status}
             onChange={(e)=>handleStatus(e.target.value)}
             disabled={status === 'Delivered'}
-            className='p-1 border-2 border-lime-300 focus:outline-lime-500 rounded-md text-gray-900 whitespace-no-wrap bg-white'
+            className='p-1 border-2 border-blue-300 focus:outline-blue-500 rounded-md text-gray-900 whitespace-no-wrap bg-white'
             name='category'
           >
             <option value='Pending'>Pending</option>
