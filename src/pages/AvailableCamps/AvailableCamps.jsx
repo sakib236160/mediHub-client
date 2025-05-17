@@ -7,6 +7,7 @@ import { useState } from 'react';
 
 const AvailableCamps = () => {
   const [sortBy, setSortBy] = useState('default');
+  const [searchTerm, setSearchTerm] = useState('');
 
   const { data: camps = [], isLoading } = useQuery({
     queryKey: ['all-camps'],
@@ -16,9 +17,7 @@ const AvailableCamps = () => {
     },
   });
 
-  console.log('Fetched Camps:', camps);
-
-  //Sorting logic updated for audience/targetAudience
+  // Sorting Logic
   const sortedCamps = [...camps].sort((a, b) => {
     if (sortBy === 'name') return a.name.localeCompare(b.name);
     if (sortBy === 'audience') {
@@ -30,6 +29,11 @@ const AvailableCamps = () => {
     return 0;
   });
 
+  // Search Filtering Logic
+  const filteredCamps = sortedCamps.filter((camp) =>
+    camp.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   if (isLoading) return <LoadingSpinner />;
 
   return (
@@ -37,7 +41,7 @@ const AvailableCamps = () => {
       {/* Top Search & Sort Section */}
       <div className="bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400 rounded-xl py-5 my-5">
         <div className="mx-auto md:w-2/3 flex flex-col md:flex-row justify-between items-center gap-4 px-4 py-6">
-          {/* Search (Design Only) */}
+          {/* Search Input */}
           <div className="relative w-full md:w-2/3">
             <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
               <svg className="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -48,14 +52,15 @@ const AvailableCamps = () => {
             </div>
             <input
               type="search"
-              className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="block w-full p-4 ps-10 text-sm text-blue-900 border border-blue-300 rounded-lg bg-blue-50"
               placeholder="Search Camps..."
-              disabled
             />
             <button
               type="submit"
+              onClick={(e) => e.preventDefault()}
               className="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2"
-              disabled
             >
               Search
             </button>
@@ -78,14 +83,14 @@ const AvailableCamps = () => {
       </div>
 
       {/* Camp Cards */}
-      {sortedCamps && sortedCamps.length > 0 ? (
+      {filteredCamps && filteredCamps.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 mb-16">
-          {sortedCamps.map((camp) => (
-            <Card key={camp._id} camp={camp}  showJoinButton={true} />
+          {filteredCamps.map((camp) => (
+            <Card key={camp._id} camp={camp} showJoinButton={true} />
           ))}
         </div>
       ) : (
-        <p className="text-center text-gray-500">No camps available.</p>
+        <p className="text-center text-gray-500">No camps found.</p>
       )}
     </Container>
   );
