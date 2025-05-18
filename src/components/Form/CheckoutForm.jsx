@@ -1,16 +1,36 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import "./CheckoutForm.css";
 import Button from "../Shared/Button/Button";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
+import { AuthContext } from "../../providers/AuthProvider"; 
 
 const CheckoutForm = ({ closeModal, submitInfo, refetch }) => {
   const axiosSecure = useAxiosSecure();
   const [clientSecret, setClientSecret] = useState("");
+  const [userRole, setUserRole] = useState("");
   const stripe = useStripe();
   const elements = useElements();
+  const { user } = useContext(AuthContext); 
 
+  // Get user role
+  useEffect(() => {
+    const fetchUserRole = async () => {
+      try {
+        const { data } = await axiosSecure.get(`/users/role/${user?.email}`);
+        setUserRole(data?.role);
+      } catch (error) {
+        console.error("Failed to fetch user role:", error);
+      }
+    };
+
+    if (user?.email) {
+      fetchUserRole();
+    }
+  }, [user?.email, axiosSecure]);
+
+  // Get Stripe payment intent
   useEffect(() => {
     if (submitInfo?.fees && submitInfo?.campId) {
       getPaymentIntent();
@@ -23,7 +43,6 @@ const CheckoutForm = ({ closeModal, submitInfo, refetch }) => {
         fees: submitInfo?.fees,
         campId: submitInfo?.campId,
       });
-      console.log("Client Secret:", data.clientSecret);
       setClientSecret(data.clientSecret);
     } catch (err) {
       console.error("Error creating payment intent:", err);
@@ -74,17 +93,15 @@ const CheckoutForm = ({ closeModal, submitInfo, refetch }) => {
         return;
       }
 
-      // Step 3: Check if payment succeeded
+      // Step 3: If payment successful, save order and update participant count
       if (paymentIntent.status === "succeeded") {
         const paymentData = {
           ...submitInfo,
-          transactionId: paymentIntent.id, // ✅ Save transaction ID
+          transactionId: paymentIntent.id,
         };
 
-        // Step 4: Save order info
         await axiosSecure.post("/order", paymentData);
 
-        // Step 5: Decrease camp participant count
         await axiosSecure.patch(`/camps/participant/${submitInfo.campId}`, {
           participantToUpdate: 1,
           status: "decrease",
@@ -120,7 +137,7 @@ const CheckoutForm = ({ closeModal, submitInfo, refetch }) => {
       />
       <div className="flex justify-around mt-2 gap-6">
         <Button
-          disabled={!stripe || !clientSecret}
+          disabled={!stripe || !clientSecret || userRole === "seller"}
           type="submit"
           label={`Pay $${submitInfo?.fees}`}
         />

@@ -5,6 +5,7 @@ import Banner from '../Banner/Banner'
 import Faq from '../Faq/Faq'
 import NewsLetter from '../NewsLetter/NewsLetter'
 import Review from '../Review/Review'
+import MedicareHighlight from '../MedicareHighlight/MedicareHighlight'
 
 const Home = () => {
   return (
@@ -14,6 +15,7 @@ const Home = () => {
       </Helmet>
       <Banner></Banner>
       <PopularCamps></PopularCamps>
+      <MedicareHighlight></MedicareHighlight>
       <Review></Review>
       <Faq></Faq>
       <NewsLetter></NewsLetter>
