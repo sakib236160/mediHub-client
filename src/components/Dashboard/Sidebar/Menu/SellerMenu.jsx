@@ -9,11 +9,11 @@ const SellerMenu = () => {
         label='Add A Camp'
         address='add-camp'
       />
-      <MenuItem icon={MdHomeWork} label='My Inventory' address='my-inventory' />
+      <MenuItem icon={MdHomeWork} label='Manage Camp' address='manage-camp' />
       <MenuItem
         icon={MdOutlineManageHistory}
-        label='Manage Camps'
-        address='manage-camps'
+        label='Manage Registered Camps'
+        address='manage-registered-camps'
       />
     </>
   )

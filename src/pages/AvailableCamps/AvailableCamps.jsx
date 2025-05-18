@@ -4,6 +4,7 @@ import axios from 'axios';
 import LoadingSpinner from '../../components/Shared/LoadingSpinner';
 import Card from '../../components/Home/Card';
 import { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 
 const AvailableCamps = () => {
   const [sortBy, setSortBy] = useState('default');
@@ -37,7 +38,12 @@ const AvailableCamps = () => {
   if (isLoading) return <LoadingSpinner />;
 
   return (
-    <Container>
+   
+    <>
+     <Helmet>
+              <title>MediCare | AvailableCamp</title>
+            </Helmet>
+      <Container>
       {/* Top Search & Sort Section */}
       <div className="bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400 rounded-xl py-5 my-5">
         <div className="mx-auto md:w-2/3 flex flex-col md:flex-row justify-between items-center gap-4 px-4 py-6">
@@ -93,6 +99,7 @@ const AvailableCamps = () => {
         <p className="text-center text-gray-500">No camps found.</p>
       )}
     </Container>
+    </>
   );
 };
 

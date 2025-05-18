@@ -31,7 +31,7 @@ const CustomerMenu = () => {
 
   return (
     <>
-      <MenuItem icon={BsFingerprint} label='My Camps' address='my-camps' />
+      <MenuItem icon={BsFingerprint} label='Registered Camps' address='registered-camps' />
 
       <button
         onClick={() => setIsOpen(true)}

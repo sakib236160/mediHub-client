@@ -72,7 +72,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "my-inventory",
+        path: "manage-camp",
         element: (
           <PrivateRoute>
               <SellerRoute>
@@ -100,7 +100,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "my-camps",
+        path: "registered-camps",
         element: (
           <PrivateRoute>
             <MyOrders />
@@ -108,7 +108,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "manage-camps",
+        path: "manage-registered-camps",
         element: (
           <PrivateRoute>
             <SellerRoute>

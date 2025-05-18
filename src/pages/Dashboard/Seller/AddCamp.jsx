@@ -58,7 +58,7 @@ const AddCamp = () => {
       // post request
       await axiosSecure.post('/camps',campData)
       toast.success('Data Added Successfully!')
-      navigate('/dashboard/my-inventory')
+      navigate('/dashboard/manage-camp')
     }catch(error){
       console.log(error);
     }

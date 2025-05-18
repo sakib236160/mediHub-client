@@ -6,12 +6,12 @@ import LoadingSpinner from '../../../components/Shared/LoadingSpinner'
 const Statistics = () => {
   const [role,isLoading] = useRole()
   if(isLoading) return <LoadingSpinner></LoadingSpinner>
-  if(role === 'customer') return <Navigate to='/dashboard/my-camps'></Navigate>
-  if(role === 'seller') return <Navigate to='/dashboard/my-inventory'></Navigate>
+  if(role === 'customer') return <Navigate to='/dashboard/registered-camps'></Navigate>
+  if(role === 'seller') return <Navigate to='/dashboard/manage-camp'></Navigate>
   return (
     <div>
       <Helmet>
-        <title>Dashboard</title>
+        <title>Statistics | Dashboard</title>
       </Helmet>
       {role === 'admin' && <AdminStatistics />}
     </div>

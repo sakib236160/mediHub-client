@@ -2,7 +2,7 @@
 
 ## ✨ Key Features:
 
-- 🔐 User-Friendly Authentication: Participants enjoy seamless login/registration functionalities, while organizers and professionals have specific access to manage camps and attendance requests, respectively.
+- 🔐 User-Friendly Authentication: Participants enjoy seamless login/registration functionalities, while organizers and professionals have specific access to s and attendance requests, respectively.
 
 - 🏕️ Camp Management: Participants can explore upcoming camps, send join requests with payments, and organizers have the ability to add, manage, and schedule upcoming camps effortlessly.
 
